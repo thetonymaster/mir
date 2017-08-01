@@ -11,7 +11,7 @@ import (
 	"time"
 
 	"github.com/jeffail/tunny"
-	"github.com/thetonymaster/test_framework/provider/container"
+	"github.com/thetonymaster/framework/provider/container"
 )
 
 type provider interface {
