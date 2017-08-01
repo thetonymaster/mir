@@ -1,0 +1,81 @@
+{
+	"version": 0,
+	"dependencies": [
+		{
+			"importpath": "github.com/docker/libcompose",
+			"repository": "https://github.com/docker/libcompose",
+			"vcs": "git",
+			"revision": "1b708aac26a4fc6f9bff31728a8e3a252ef57dbd",
+			"branch": "master",
+			"notests": true
+		},
+		{
+			"importpath": "github.com/ghodss/yaml",
+			"repository": "https://github.com/ghodss/yaml",
+			"vcs": "git",
+			"revision": "0ca9ea5df5451ffdf184b4428c902747c2c11cd7",
+			"branch": "master",
+			"notests": true
+		},
+		{
+			"importpath": "github.com/jeffail/tunny",
+			"repository": "https://github.com/jeffail/tunny",
+			"vcs": "git",
+			"revision": "54ae6b3774037722ea5cc04b6af6e971b6221fbf",
+			"branch": "master",
+			"notests": true
+		},
+		{
+			"importpath": "github.com/wadey/gocovmerge",
+			"repository": "https://github.com/wadey/gocovmerge",
+			"vcs": "git",
+			"revision": "b5bfa59ec0adc420475f97f89b58045c721d761c",
+			"branch": "master",
+			"notests": true
+		},
+		{
+			"importpath": "golang.org/x/tools/cmd/goimports",
+			"repository": "https://go.googlesource.com/tools",
+			"vcs": "git",
+			"revision": "fcc44a6330868f7bdb7285effa1a0666eede46ac",
+			"branch": "master",
+			"path": "/cmd/goimports",
+			"notests": true
+		},
+		{
+			"importpath": "golang.org/x/tools/cover",
+			"repository": "https://go.googlesource.com/tools",
+			"vcs": "git",
+			"revision": "fcc44a6330868f7bdb7285effa1a0666eede46ac",
+			"branch": "master",
+			"path": "/cover",
+			"notests": true
+		},
+		{
+			"importpath": "golang.org/x/tools/go/ast/astutil",
+			"repository": "https://go.googlesource.com/tools",
+			"vcs": "git",
+			"revision": "fcc44a6330868f7bdb7285effa1a0666eede46ac",
+			"branch": "master",
+			"path": "go/ast/astutil",
+			"notests": true
+		},
+		{
+			"importpath": "golang.org/x/tools/imports",
+			"repository": "https://go.googlesource.com/tools",
+			"vcs": "git",
+			"revision": "fcc44a6330868f7bdb7285effa1a0666eede46ac",
+			"branch": "master",
+			"path": "imports",
+			"notests": true
+		},
+		{
+			"importpath": "gopkg.in/yaml.v2",
+			"repository": "https://gopkg.in/yaml.v2",
+			"vcs": "git",
+			"revision": "25c4ec802a7d637f88d584ab26798e94ad14c13b",
+			"branch": "v2",
+			"notests": true
+		}
+	]
+}
