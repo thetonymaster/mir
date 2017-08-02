@@ -24,10 +24,15 @@ build: .GOPATH/.ok
 
 ##### =====> Utility targets <===== #####
 
-.PHONY: clean test list cover format
+.PHONY: clean demo test list cover format
 
 clean:
 	$Q rm -rf bin .GOPATH
+	
+demo: build
+	$Q git clone https://github.com/thetonymaster/pet-clinic.git .GOPATH/pet-clinic
+	$Q ./bin/framework samples/conf.yaml
+	$Q rm -rf .GOPATH/pet-clinic
 
 test: .GOPATH/.ok
 	$Q go test $(if $V,-v) -i -race $(allpackages) # install -race libs to speed up next run

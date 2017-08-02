@@ -1,0 +1,15 @@
+---
+configuration:
+  containers:
+    limit: 2
+    memory: 512mb
+  tests:
+    junit:
+      repo: https://github.com/thetonymaster/pet-clinic.git
+      target: petclinic
+      path: ".GOPATH/pet-clinic/docker-compose.yml"
+  options:
+    time: 3m
+    priority: time_consuming
+    processor: 30
+  provider: docker_compose
