@@ -31,12 +31,6 @@ func main() {
 		runTests(framework, &configuration, conf, pool)
 	}
 
-	// dir, _ := filepath.Abs(filepath.Dir(conf.Tests["junit"].Path))
-	// containerProvider := container.NewDockerComposeGenerator([]string{conf.Tests["junit"].Path})
-	// jUnitTestProvider := test.NewJUnit(containerProvider, conf.Tests["junit"].Target, pool)
-	// tasks := jUnitTestProvider.GetFiles(dir + "/src/test/")
-	// jUnitTestProvider.RunTask(tasks)
-
 }
 
 func runTests(framework string, cfb *configuration.TestConfiguration,
