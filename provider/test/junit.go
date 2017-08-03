@@ -79,6 +79,7 @@ func (junit *JUnit) RunTask(tasks []string) error {
 	for _, task := range tasks {
 		payload := junit.getPayload(containers, junit.Target, task)
 		junit.pool.SendWorkAsync(payload, nil)
+		time.Sleep(200 * time.Millisecond)
 	}
 	for junit.pool.NumPendingAsyncJobs() > 0 {
 		time.Sleep(1 * time.Second)
