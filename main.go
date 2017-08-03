@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"time"
 
 	"github.com/jeffail/tunny"
 	"github.com/thetonymaster/framework/configuration"
@@ -38,6 +39,7 @@ func runTests(framework string, cfb *configuration.TestConfiguration,
 	conf *configuration.Configuration, pool *tunny.WorkPool) {
 	done := make(chan bool, 1)
 	results := make(chan presenter.Result, 100)
+	var realTime float64
 
 	switch framework {
 	case "junit":
@@ -48,8 +50,10 @@ func runTests(framework string, cfb *configuration.TestConfiguration,
 		tasks := jUnitTestProvider.GetFiles(dir + "/src/test/")
 		jUnitTestProvider.Done = done
 		jUnitTestProvider.Results = results
+		start := time.Now()
 		jUnitTestProvider.RunTask(tasks)
-
+		elapsed := time.Since(start)
+		realTime = elapsed.Seconds()
 	}
 
 	<-done
@@ -58,5 +62,5 @@ func runTests(framework string, cfb *configuration.TestConfiguration,
 	for r := range results {
 		res = append(res, r)
 	}
-	presenter.PrintResult(res)
+	presenter.PrintResult(res, realTime)
 }
