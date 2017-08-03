@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"math/rand"
 	"time"
 
 	"github.com/docker/libcompose/docker"
@@ -11,6 +12,10 @@ import (
 	"github.com/docker/libcompose/project"
 	"github.com/docker/libcompose/project/options"
 )
+
+func init() {
+	rand.Seed(time.Now().Unix())
+}
 
 type Provider interface {
 	Execute(target string, task ...string) error
@@ -113,6 +118,9 @@ func (dc DockerCompose) runTask(target string, task []string) (<-chan int, <-cha
 	errs := make(chan error, 1)
 
 	go func() {
+
+		randSleep := random(1500, 5000)
+		time.Sleep(time.Duration(randSleep) * time.Millisecond)
 		status, err := dc.project.Run(context.TODO(),
 			target,
 			task,
@@ -130,4 +138,9 @@ func (dc DockerCompose) runTask(target string, task []string) (<-chan int, <-cha
 	}()
 
 	return out, errs
+}
+
+func random(min, max int64) int64 {
+
+	return rand.Int63n(max-min) + min
 }
