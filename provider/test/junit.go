@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/jeffail/tunny"
+	"github.com/thetonymaster/framework/presenter"
 	"github.com/thetonymaster/framework/provider/container"
 )
 
@@ -30,6 +31,8 @@ type JUnit struct {
 	Generator generator
 	Target    string
 	pool      *tunny.WorkPool
+	Done      chan bool
+	Results   chan presenter.Result
 }
 
 const JUnitProject = "junit"
@@ -63,25 +66,33 @@ func (junit *JUnit) RunTask(tasks []string) error {
 	containers.Run()
 
 	for _, task := range tasks {
-		payload := getPayload(containers, junit.Target, task)
+		payload := getPayload(containers, junit.Target, task, junit.Results)
 		junit.pool.SendWorkAsync(payload, nil)
-		time.Sleep(1 * time.Second)
+		time.Sleep(2 * time.Second)
 
 	}
 	for junit.pool.NumPendingAsyncJobs() > 0 {
 		time.Sleep(1 * time.Second)
 	}
 	containers.Kill()
+	junit.Done <- true
+	close(junit.Results)
 	return nil
 }
 
-func getPayload(containers *container.Container, target, task string) func() {
+func getPayload(containers *container.Container, target, task string, results chan presenter.Result) func() {
 	return func() {
 		time.Sleep(3 * time.Second)
 		start := time.Now()
 		taskLocal := task
 		err := containers.Execute(target, "./mvnw", "test", fmt.Sprintf("-Dtest=%s", task))
 		elapsed := time.Since(start)
+		result := presenter.Result{
+			Task:  task,
+			Time:  elapsed.Seconds(),
+			Error: err,
+		}
+		results <- result
 		log.Printf("%s took %s\n", taskLocal, elapsed)
 		if err != nil {
 			fmt.Println(err)
