@@ -32,6 +32,7 @@ clean:
 demo: build
 	$Q [ -d '.GOPATH/pet-clinic' ] || git clone https://github.com/thetonymaster/pet-clinic.git .GOPATH/pet-clinic
 	$Q cd '.GOPATH/pet-clinic' && git checkout demo
+	$Q cd '.GOPATH/pet-clinic' && docker build . -t=thetonymaster/pet-clinic
 	$Q ./bin/framework samples/conf.yaml
 
 test: .GOPATH/.ok
