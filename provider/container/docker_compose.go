@@ -84,7 +84,6 @@ func (dc DockerCompose) Run() error {
 	if err != nil {
 		return err
 	}
-	err = dc.project.Kill(context.Background(), "SIGKILL", dc.target)
 	time.Sleep(5 * time.Second)
 
 	return err
