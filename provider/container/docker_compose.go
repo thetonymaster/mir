@@ -84,7 +84,6 @@ func (dc DockerCompose) Run() error {
 	if err != nil {
 		return err
 	}
-	time.Sleep(5 * time.Second)
 
 	return err
 }
@@ -117,9 +116,6 @@ func (dc DockerCompose) runTask(target string, task []string) (<-chan int, <-cha
 	errs := make(chan error, 1)
 
 	go func() {
-		randstart := random(0, 500)
-		randSleep := random(randstart, 1000)
-		time.Sleep(time.Duration(randSleep) * time.Millisecond)
 		status, err := dc.project.Run(context.TODO(),
 			target,
 			task,
@@ -132,8 +128,6 @@ func (dc DockerCompose) runTask(target string, task []string) (<-chan int, <-cha
 		} else {
 			out <- status
 		}
-		randSleep = random(randstart, 1000)
-		time.Sleep(time.Duration(randSleep) * time.Millisecond)
 
 		close(out)
 		close(errs)
