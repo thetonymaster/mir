@@ -98,7 +98,7 @@ func random(min, max int64) int64 {
 func (junit *JUnit) getPayload(containers *container.Container, target, task string) func() {
 	return func() {
 		start := time.Now()
-		err := containers.Execute(target, "./mvnw", "surefire:test", fmt.Sprintf("-Dtest=%s", task))
+		err := containers.Execute(target, "mvn", "surefire:test", fmt.Sprintf("-Dtest=%s", task))
 		elapsed := time.Since(start)
 		result := presenter.Result{
 			Task:  task,
