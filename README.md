@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/thetonymaster/framework.png?label=ready&title=Ready)](https://waffle.io/thetonymaster/framework?utm_source=badge)
 # framework
 
 ## Usage
