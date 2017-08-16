@@ -20,10 +20,6 @@ import (
 	"github.com/thetonymaster/framework/provider/container"
 )
 
-type Repository interface {
-	Save(data map[string]interface{}) error
-}
-
 type generator interface {
 	New(projectName string, args ...string) *container.Container
 }
