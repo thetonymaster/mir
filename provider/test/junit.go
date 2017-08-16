@@ -20,11 +20,8 @@ import (
 	"github.com/thetonymaster/framework/provider/container"
 )
 
-type provider interface {
-	Run() error
-	Execute(target string, task ...string) error
-	Scale(containers map[string]int) error
-	Kill() error
+type Repository interface {
+	Save(data map[string]interface{}) error
 }
 
 type generator interface {
