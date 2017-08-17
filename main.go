@@ -11,6 +11,7 @@ import (
 	"github.com/thetonymaster/framework/presenter"
 	"github.com/thetonymaster/framework/provider/container"
 	"github.com/thetonymaster/framework/provider/test"
+	"github.com/thetonymaster/framework/repository"
 )
 
 func main() {
@@ -22,6 +23,12 @@ func main() {
 		log.Fatal(err)
 	}
 
+	repo, err := repository.NewInfluxDBClient("http://localhost:8086")
+	if err != nil {
+		log.Fatal(err)
+	}
+	p := presenter.NewPresenter(repo)
+
 	pool, _ := tunny.CreatePool(conf.Containers.Limit, func(f interface{}) interface{} {
 		input, _ := f.(func())
 		input()
@@ -30,13 +37,13 @@ func main() {
 	defer pool.Close()
 
 	for framework, configuration := range conf.Tests {
-		runTests(framework, &configuration, conf, pool)
+		runTests(framework, &configuration, conf, pool, p)
 	}
 
 }
 
 func runTests(framework string, cfb *configuration.TestConfiguration,
-	conf *configuration.Configuration, pool *tunny.WorkPool) {
+	conf *configuration.Configuration, pool *tunny.WorkPool, p *presenter.Presenter) {
 	done := make(chan bool, 1)
 	results := make(chan presenter.Result, 100)
 	var realTime float64
@@ -62,5 +69,5 @@ func runTests(framework string, cfb *configuration.TestConfiguration,
 	for r := range results {
 		res = append(res, r)
 	}
-	presenter.PrintResult(res, realTime)
+	p.PrintResult(res, realTime)
 }
