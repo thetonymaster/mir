@@ -20,12 +20,12 @@ import (
 	"github.com/thetonymaster/framework/provider/container"
 )
 
-type Repository interface {
-	Save(data map[string]interface{}) error
-}
-
 type generator interface {
 	New(projectName string, args ...string) *container.Container
+}
+
+type Repository interface {
+	Save(data map[string]interface{}) error
 }
 
 // JUnit runs the JUnit tests
@@ -36,6 +36,7 @@ type JUnit struct {
 	Done         chan bool
 	Results      chan presenter.Result
 	dockerClient *client.Client
+	Repository   Repository
 }
 
 const JUnitProject = "junit"
@@ -143,6 +144,18 @@ func (junit *JUnit) getPayload(containers *container.Container, target, task str
 
 		junit.dockerClient.ContainerRemove(context.Background(), id,
 			types.ContainerRemoveOptions{})
+
+		r := map[string]interface{}{
+			"run_time":  result.Time,
+			"test_time": result.Time,
+		}
+
+		if result.Error != nil {
+			r["error"] = result.Error.Error()
+			r["output"] = result.Output
+		}
+
+		junit.Repository.Save(r)
 
 		junit.Results <- result
 		log.Printf("%s took %s\n", task, elapsed)

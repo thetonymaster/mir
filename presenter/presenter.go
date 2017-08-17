@@ -12,7 +12,21 @@ type Result struct {
 	Output string
 }
 
-func PrintResult(results []Result, realTime float64) {
+type Repository interface {
+	Save(table string, data map[string]interface{}) error
+}
+
+type Presenter struct {
+	Repository Repository
+}
+
+func NewPresenter(repository Repository) *Presenter {
+	return &Presenter{
+		Repository: repository,
+	}
+}
+
+func (p *Presenter) PrintResult(results []Result, realTime float64) {
 	flag := false
 	message := ""
 	var total float64
@@ -44,4 +58,21 @@ func PrintResult(results []Result, realTime float64) {
 	} else {
 		fmt.Printf("\n\n%s%s\nTOTAL: %f\nAVERAGE: %f\nREAL TIME: %f\n", "SUCCESS", message, total, avg, realTime)
 	}
+
+	p.Save(realTime, avg, total)
+}
+
+func (p *Presenter) Save(realTime, average, total float64) error {
+	r := map[string]interface{}{
+		"total_time": total,
+		"average":    average,
+		"real_time":  realTime,
+	}
+
+	err := p.Repository.Save("results", r)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

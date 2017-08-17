@@ -40,7 +40,7 @@ func TestSaveInfluxDB(t *testing.T) {
 		"total":     30.00,
 	}
 
-	err := idb.Save(data)
+	err := idb.Save("test_data", data)
 	if err != nil {
 		t.Errorf("Save Got error %s", err)
 	}
