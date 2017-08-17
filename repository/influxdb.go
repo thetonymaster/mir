@@ -48,3 +48,7 @@ func (idb *InfluxDB) Save(table string, data map[string]interface{}) error {
 
 	return nil
 }
+
+func (idb *InfluxDB) Close() error {
+	return idb.Close()
+}

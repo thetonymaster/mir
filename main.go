@@ -27,6 +27,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	p := presenter.NewPresenter(repo)
 
 	pool, _ := tunny.CreatePool(conf.Containers.Limit, func(f interface{}) interface{} {
@@ -57,6 +58,9 @@ func runTests(framework string, cfb *configuration.TestConfiguration,
 		tasks := jUnitTestProvider.GetFiles(dir + "/src/test/")
 		jUnitTestProvider.Done = done
 		jUnitTestProvider.Results = results
+
+		jUnitTestProvider.Repository = p.Repository
+
 		start := time.Now()
 		jUnitTestProvider.RunTask(tasks)
 		elapsed := time.Since(start)

@@ -18,6 +18,10 @@ func (f fakeRepo) Save(table string, data map[string]interface{}) error {
 	return nil
 }
 
+func (f fakeRepo) Close() error {
+	return nil
+}
+
 func ExamplePresenter_PrintResult_success() {
 	p := NewPresenter(fakeRepo{})
 	res := []Result{

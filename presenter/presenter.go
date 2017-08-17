@@ -14,6 +14,7 @@ type Result struct {
 
 type Repository interface {
 	Save(table string, data map[string]interface{}) error
+	Close() error
 }
 
 type Presenter struct {
