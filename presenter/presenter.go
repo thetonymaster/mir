@@ -13,7 +13,7 @@ type Result struct {
 }
 
 type Repository interface {
-	Save(data map[string]interface{}) error
+	Save(table string, data map[string]interface{}) error
 }
 
 type Presenter struct {
@@ -59,23 +59,19 @@ func (p *Presenter) PrintResult(results []Result, realTime float64) {
 		fmt.Printf("\n\n%s%s\nTOTAL: %f\nAVERAGE: %f\nREAL TIME: %f\n", "SUCCESS", message, total, avg, realTime)
 	}
 
-	p.Save(results, realTime)
+	p.Save(realTime, avg, total)
 }
 
-func (p *Presenter) Save(results []Result, realTime float64) error {
-	for _, result := range results {
-		r := map[string]interface{}{}
-		r["time"] = result.Time
-		r["task"] = result.Task
-		if result.Error != nil {
-			r["error"] = result.Error.Error()
-			r["output"] = result.Output
-		}
+func (p *Presenter) Save(realTime, average, total float64) error {
+	r := map[string]interface{}{
+		"total_time": total,
+		"average":    average,
+		"real_time":  realTime,
+	}
 
-		err := p.Repository.Save(r)
-		if err != nil {
-			return err
-		}
+	err := p.Repository.Save("results", r)
+	if err != nil {
+		return err
 	}
 
 	return nil

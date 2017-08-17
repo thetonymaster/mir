@@ -37,13 +37,13 @@ func main() {
 	defer pool.Close()
 
 	for framework, configuration := range conf.Tests {
-		runTests(framework, &configuration, conf, pool)
+		runTests(framework, &configuration, conf, pool, p)
 	}
 
 }
 
 func runTests(framework string, cfb *configuration.TestConfiguration,
-	conf *configuration.Configuration, pool *tunny.WorkPool) {
+	conf *configuration.Configuration, pool *tunny.WorkPool, p *presenter.Presenter) {
 	done := make(chan bool, 1)
 	results := make(chan presenter.Result, 100)
 	var realTime float64

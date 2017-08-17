@@ -14,7 +14,7 @@ func TestNewPresenter(t *testing.T) {
 
 type fakeRepo struct{}
 
-func (f fakeRepo) Save(data map[string]interface{}) error {
+func (f fakeRepo) Save(table string, data map[string]interface{}) error {
 	return nil
 }
 
@@ -93,28 +93,8 @@ func ExamplePresenter_PrintResult_fail() {
 
 func TestPresenter_Save(t *testing.T) {
 	p := NewPresenter(fakeRepo{})
-	resf := []Result{
-		{
-			Task: "Task A",
-			Time: 10.0,
-		},
-		{
-			Task:   "Task B",
-			Time:   10.0,
-			Error:  errors.New("Failed Test"),
-			Output: "Failed tests:\nTest asd: failed\nTests run:",
-		},
-		{
-			Task: "Task C",
-			Time: 10.0,
-		},
-		{
-			Task: "D",
-			Time: 10.0,
-		},
-	}
 
-	err := p.Save(resf, 10.0)
+	err := p.Save(10.0, 10.0, 10.0)
 	if err != nil {
 		t.Fatal("Error should hot have happened")
 	}
