@@ -2322,6 +2322,33 @@
 			"notests": true
 		},
 		{
+			"importpath": "github.com/influxdata/influxdb/client/v2",
+			"repository": "https://github.com/influxdata/influxdb",
+			"vcs": "git",
+			"revision": "9135b21efd59a75b840c72d7dcbeef707278fc3b",
+			"branch": "master",
+			"path": "/client/v2",
+			"notests": true
+		},
+		{
+			"importpath": "github.com/influxdata/influxdb/models",
+			"repository": "https://github.com/influxdata/influxdb",
+			"vcs": "git",
+			"revision": "9135b21efd59a75b840c72d7dcbeef707278fc3b",
+			"branch": "master",
+			"path": "models",
+			"notests": true
+		},
+		{
+			"importpath": "github.com/influxdata/influxdb/pkg/escape",
+			"repository": "https://github.com/influxdata/influxdb",
+			"vcs": "git",
+			"revision": "9135b21efd59a75b840c72d7dcbeef707278fc3b",
+			"branch": "master",
+			"path": "pkg/escape",
+			"notests": true
+		},
+		{
 			"importpath": "github.com/jeffail/tunny",
 			"repository": "https://github.com/jeffail/tunny",
 			"vcs": "git",
