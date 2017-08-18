@@ -155,9 +155,9 @@ func (junit *JUnit) getPayload(containers *container.Container, target, task str
 			r["output"] = result.Output
 		}
 
-		junit.Repository.Save("test_data", r)
+		err = junit.Repository.Save("test_data", r)
+		fmt.Printf("Error %s\n", err)
 
-		log.Printf("%#v\n", r)
 		log.Printf("%s took %s\n", task, elapsed)
 
 		junit.Results <- result
