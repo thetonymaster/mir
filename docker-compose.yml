@@ -3,6 +3,8 @@ version: "3"
 services:
   influxdb:
     build: influxdb
+    volumes:
+      - ./db-data:/var/lib/influxdb
     ports:
       - "8086:8086"
       - "2003:2003"
