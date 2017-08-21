@@ -14,7 +14,7 @@ func TestNewPresenter(t *testing.T) {
 
 type fakeRepo struct{}
 
-func (f fakeRepo) Save(table string, data map[string]interface{}) error {
+func (f fakeRepo) Save(table string, tags map[string]string, data map[string]interface{}) error {
 	return nil
 }
 

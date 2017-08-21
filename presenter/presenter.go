@@ -13,7 +13,7 @@ type Result struct {
 }
 
 type Repository interface {
-	Save(table string, data map[string]interface{}) error
+	Save(table string, tags map[string]string, data map[string]interface{}) error
 	Close() error
 }
 
@@ -70,7 +70,7 @@ func (p *Presenter) Save(realTime, average, total float64) error {
 		"real_time":  realTime,
 	}
 
-	err := p.Repository.Save("results", r)
+	err := p.Repository.Save("results", nil, r)
 	if err != nil {
 		return err
 	}

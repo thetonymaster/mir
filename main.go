@@ -70,8 +70,21 @@ func runTests(framework string, cfb *configuration.TestConfiguration,
 	<-done
 
 	var res []presenter.Result
+	total := 0.0
 	for r := range results {
 		res = append(res, r)
+		total += r.Time
 	}
+
+	tags := map[string]string{
+		"framework": "junit",
+	}
+
+	data := map[string]interface{}{
+		"total_time": total,
+	}
+
+	p.Repository.Save("results_by_framework", tags, data)
+
 	p.PrintResult(res, realTime)
 }
