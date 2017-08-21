@@ -25,7 +25,7 @@ type generator interface {
 }
 
 type Repository interface {
-	Save(data map[string]interface{}) error
+	Save(table string, tags map[string]string, data map[string]interface{}) error
 }
 
 // JUnit runs the JUnit tests
@@ -146,19 +146,22 @@ func (junit *JUnit) getPayload(containers *container.Container, target, task str
 			types.ContainerRemoveOptions{})
 
 		r := map[string]interface{}{
-			"run_time":  result.Time,
-			"test_time": result.Time,
+			"run_time": result.Time,
 		}
 
 		if result.Error != nil {
 			r["error"] = result.Error.Error()
 			r["output"] = result.Output
 		}
+		tag := map[string]string{
+			"test":      result.Task,
+			"framework": "junit",
+		}
+		err = junit.Repository.Save("test_data", tag, r)
 
-		junit.Repository.Save(r)
+		log.Printf("%s took %s\n", task, elapsed)
 
 		junit.Results <- result
-		log.Printf("%s took %s\n", task, elapsed)
 		if err != nil {
 			fmt.Println(err)
 		}

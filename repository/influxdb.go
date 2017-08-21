@@ -24,7 +24,7 @@ func NewInfluxDBClient(host string) (*InfluxDB, error) {
 	return idb, nil
 }
 
-func (idb *InfluxDB) Save(table string, data map[string]interface{}) error {
+func (idb *InfluxDB) Save(table string, tags map[string]string, data map[string]interface{}) error {
 
 	bp, err := client.NewBatchPoints(client.BatchPointsConfig{
 		Database:  "tests",
@@ -35,7 +35,7 @@ func (idb *InfluxDB) Save(table string, data map[string]interface{}) error {
 		return err
 	}
 
-	pt, err := client.NewPoint(table, nil, data, time.Now())
+	pt, err := client.NewPoint(table, tags, data, time.Now())
 	if err != nil {
 		return err
 	}
@@ -47,4 +47,8 @@ func (idb *InfluxDB) Save(table string, data map[string]interface{}) error {
 	}
 
 	return nil
+}
+
+func (idb *InfluxDB) Close() error {
+	return idb.Close()
 }
