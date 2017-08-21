@@ -10,8 +10,6 @@ services:
       - "2003:2003"
   grafana:
     build: grafana
-    volumes:
-      - ./grafana-data:/var/lib/grafana
     ports:
       - "3000:3000"
     depends_on:
