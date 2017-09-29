@@ -65,6 +65,21 @@ func runTests(framework string, cfb *configuration.TestConfiguration,
 		jUnitTestProvider.RunTask(tasks)
 		elapsed := time.Since(start)
 		realTime = elapsed.Seconds()
+
+	case "golang":
+		containerProvider := container.NewDockerComposeGenerator([]string{conf.Tests["golang"].Path})
+		golangProvider := test.NewGolang(containerProvider, conf.Tests["golang"].Target, pool)
+
+		golangProvider.Repository = p.Repository
+
+		golangProvider.Done = done
+		golangProvider.Results = results
+
+		start := time.Now()
+		golangProvider.RunTask(conf.Tests["golang"].Tags)
+		elapsed := time.Since(start)
+		realTime = elapsed.Seconds()
+
 	}
 
 	<-done
@@ -77,7 +92,7 @@ func runTests(framework string, cfb *configuration.TestConfiguration,
 	}
 
 	tags := map[string]string{
-		"framework": "junit",
+		"framework": "golang",
 	}
 
 	data := map[string]interface{}{

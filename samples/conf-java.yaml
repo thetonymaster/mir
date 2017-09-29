@@ -1,0 +1,26 @@
+---
+configuration:
+  containers:
+    limit: 4
+  tests:
+    junit:
+      target: pet_clinic
+      path: "spring-petclinic/docker-compose.yml"
+      tags:
+        - "unit"
+        - "integration"
+    selenium:
+      target: pet_clinic_regression
+      path: "adop-cartridge-java-regression-tests/docker-compose.yml"
+      tags:
+        - "usability"
+        - "acceptance"
+    jmeter:
+      target: pet_clinic
+      path: "spring-petclinic/docker-compose.yml"
+      tags:
+        - "stress"
+        - "performance"
+    elixir: 
+      
+  provider: docker_compose

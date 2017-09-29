@@ -22,9 +22,10 @@ type ContainerConfig struct {
 }
 
 type TestConfiguration struct {
-	Repo   string `json:"repo"`
-	Target string `json:"target"`
-	Path   string `json:"path"`
+	Repo   string   `json:"repo"`
+	Target string   `json:"target"`
+	Path   string   `json:"path"`
+	Tags   []string `json:"tags"`
 }
 
 type Options struct {

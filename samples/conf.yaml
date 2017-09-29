@@ -3,7 +3,11 @@ configuration:
   containers:
     limit: 4
   tests:
-    junit:
-      target: petclinic
-      path: ".GOPATH/pet-clinic/docker-compose.yml"
+    golang:
+      target: go
+      path: ".GOPATH/terraform-provider-cloudscale/docker-compose.yml"
+      tags:
+        - "TestAccCloudscaleFloatingIP_*"
+        - "TestAccCloudscaleServer_Advanced_*"
+        - "TestAccCloudscaleServer_Basic_*"
   provider: docker_compose
